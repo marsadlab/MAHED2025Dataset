@@ -190,6 +190,7 @@ Note that the checker can not verify whether the prediction files you submit con
 ## Submission
 
 ### Guidelines
+TBA
 <!-- The process consists of two phases:
 
 1. **System Development Phase:** This phase involves working on the dev set.
@@ -204,6 +205,7 @@ For each phase, please adhere to the following guidelines:
 - You are permitted to submit a maximum of 200 submissions per day for each subtask. -->
 
 ### Submission Site
+TBA
 <!-- Please submit your results on the respective subtask tab: https://codalab.lisn.upsaclay.fr/competitions/18099 -->
 
 
