@@ -13,7 +13,7 @@ In this edition we offered three tasks (i) hate and hope speech classification, 
 
   Multimodal Hate Speech Detection in Memes
 
-- [Task 3: Emotion, Offensive Language, and Hate Detection](task2)
+- [Task 3: Multimodal Hate Speech Detection in Memes](task3)
 
   Detect whether a meme (text + image) is hateful or not.
 
