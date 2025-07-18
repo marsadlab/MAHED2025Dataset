@@ -38,6 +38,8 @@ Kindly find the leaderboard released in this google sheet, [link](http://shortur
 	Contains scripts provided to check format of the submission file.
 * Main folder: [scorer](./scorer)<br/>
 	Contains scripts provided to score output of the model when provided with label (i.e., dev set).
+* Main folder: [example_scripts](./example_scripts)<br/>
+	Contains training scripts for different modalities such as text only, image only and multimodal.
 
 * [README.md](./README.md) <br/>
 	This file!
@@ -86,6 +88,7 @@ for split in ['train','dev','test']:
             del item['image']
             del item['prop_label']
             del item['hate_fine_grained_label']
+            item['label'] = item.pop('hate_label')
             f.write(json.dumps(item, ensure_ascii=False) + '\n')
 
 ```
@@ -190,11 +193,11 @@ Note that the checker can not verify whether the prediction files you submit con
 ## Submission
 
 ### Guidelines
-TBA
+
 <!-- The process consists of two phases:
 
 1. **System Development Phase:** This phase involves working on the dev set.
-2. **Final Evaluation Phase (will start on 27 April 2023):** This phase involves working on the test set, which will be released during the evaluation cycle.
+2. **Final Evaluation Phase (will start on 20th July and ends on 25 July 2025):** This phase involves working on the test set, which will be released during the evaluation cycle.
 
 For each phase, please adhere to the following guidelines:
 - Each team should create and maintain a single account for submissions. Please ensure all runs are submitted through this account. Submissions from multiple accounts by the same team could result in your system being not ranked in the overview paper.
@@ -205,8 +208,8 @@ For each phase, please adhere to the following guidelines:
 - You are permitted to submit a maximum of 200 submissions per day for each subtask. -->
 
 ### Submission Site
-TBA
-<!-- Please submit your results on the respective subtask tab: https://codalab.lisn.upsaclay.fr/competitions/18099 -->
+
+Please submit your results on the respective subtask tab: https://www.codabench.org/competitions/9192/
 
 
 ## Licensing
