@@ -1,37 +1,45 @@
-import os
-import jsonlines
-from tqdm import tqdm
-import json
 import argparse
+import json
+import logging
+import os
 import sys
 from os.path import dirname
-import logging
+
+import jsonlines
 
 import torch
-from torch.utils.data import DataLoader
-from torch.utils.data import Dataset
-from torchvision.models import convnext_tiny, resnet34
-from torchvision.models import ConvNeXt_Tiny_Weights, ResNet34_Weights
-from torchvision.io import read_image, ImageReadMode
+from arabert.preprocess import ArabertPreprocessor
+from torch.utils.data import DataLoader, Dataset
+from torchvision.io import ImageReadMode, read_image
+from torchvision.models import (
+    convnext_tiny,
+    ConvNeXt_Tiny_Weights,
+    resnet34,
+    ResNet34_Weights,
+)
+from tqdm import tqdm
 
 from transformers import AutoModel, AutoTokenizer
 from TweetNormalizer import normalizeTweet
-from arabert.preprocess import ArabertPreprocessor
 
 ROOT_DIR = dirname(dirname(__file__))
-logging.basicConfig(format='%(levelname)s : %(message)s', level=logging.INFO)
+logging.basicConfig(format="%(levelname)s : %(message)s", level=logging.INFO)
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
 class CustomMMDataset(Dataset):
     def __init__(self, jsonl_file, data_dir, img_preprocess, tokenizer, text_prefunc):
-        self.jsonl_file = [obj for obj in json.load(open(os.path.join(data_dir, jsonl_file)))]
+        self.jsonl_file = [
+            obj for obj in json.load(open(os.path.join(data_dir, jsonl_file)))
+        ]
         # self.jsonl_file = [obj for obj in jsonlines.open(os.path.join(data_dir, jsonl_file))]
         self.data_dir = data_dir
         self.img_transform = img_preprocess
         self.tokenizer = tokenizer
-        self.text_transform = text_prefunc.preprocess if text_prefunc is not None else normalizeTweet
+        self.text_transform = (
+            text_prefunc.preprocess if text_prefunc is not None else normalizeTweet
+        )
 
     def __len__(self):
         return len(self.jsonl_file)
@@ -41,13 +49,18 @@ class CustomMMDataset(Dataset):
 
         tweet_id = obj["id"]
 
-        img = read_image(os.path.join(self.data_dir, obj["img_path"]), ImageReadMode.RGB)
+        img = read_image(
+            os.path.join(self.data_dir, obj["img_path"]), ImageReadMode.RGB
+        )
         img_tensor = self.img_transform(img)
 
         text = self.text_transform(obj["text"])
-        text_tokens = self.tokenizer.encode(text, padding="max_length", truncation=True, max_length=128)
+        text_tokens = self.tokenizer.encode(
+            text, padding="max_length", truncation=True, max_length=128
+        )
 
         return tweet_id, img_tensor, torch.tensor(text_tokens)
+
 
 def get_features(loader, img_model, text_model):
     img_feats, text_feats = {}, {}
@@ -67,17 +80,32 @@ def get_features(loader, img_model, text_model):
     return img_feats, text_feats
 
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--data-dir", "-d", required=True, type=str,
-                        default="~/araieval_arabicnlp24/task2/",
-                        help="The absolute path to the training data")
-    parser.add_argument("--file-name", "-f", required=True, type=str,
-                        default="arabic_memes_propaganda_araieval_24_train.json",
-                        help="Input file name, exptects jsonl")
-    parser.add_argument("--out-file-name", "-o", required=True, type=str,
-                        default="train_feats.json", help="Output feature file name")
+    parser.add_argument(
+        "--data-dir",
+        "-d",
+        required=True,
+        type=str,
+        default="~/araieval_arabicnlp24/task2/",
+        help="The absolute path to the training data",
+    )
+    parser.add_argument(
+        "--file-name",
+        "-f",
+        required=True,
+        type=str,
+        default="arabic_memes_propaganda_araieval_24_train.json",
+        help="Input file name, exptects jsonl",
+    )
+    parser.add_argument(
+        "--out-file-name",
+        "-o",
+        required=True,
+        type=str,
+        default="train_feats.json",
+        help="Output feature file name",
+    )
     args = parser.parse_args()
 
     ## Image model and preprocessing
@@ -99,7 +127,9 @@ if __name__ == '__main__':
     data_file = args.file_name
     out_path = os.path.join(data_dir, "features")
     print("------------------------ Processing ids ------------------------")
-    train_dataset = CustomMMDataset(data_file, data_dir, img_preprocess, tokenizer, text_prefunc)
+    train_dataset = CustomMMDataset(
+        data_file, data_dir, img_preprocess, tokenizer, text_prefunc
+    )
     train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
 
     img_feats, text_feats = get_features(train_loader, img_model, text_model)
@@ -107,7 +137,8 @@ if __name__ == '__main__':
     if not os.path.exists(out_path):
         os.makedirs(out_path)
 
-    json.dump({"imgfeats": img_feats, "textfeats": text_feats}, open(os.path.join(out_path, args.out_file_name), "w"))
-    print("Processed %d images, %d texts\n"%(len(img_feats), len(text_feats)))
-
-
+    json.dump(
+        {"imgfeats": img_feats, "textfeats": text_feats},
+        open(os.path.join(out_path, args.out_file_name), "w"),
+    )
+    print("Processed %d images, %d texts\n" % (len(img_feats), len(text_feats)))

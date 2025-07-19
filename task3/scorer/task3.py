@@ -1,25 +1,24 @@
-import pdb
-import logging
 import argparse
-import os
 import json
+import logging
+import os
+import pdb
 
 import sys
-sys.path.append('.')
+
+sys.path.append(".")
 from format_checker.task3 import check_format
-from sklearn.metrics import f1_score
-from sklearn.metrics import accuracy_score
-from sklearn.metrics import recall_score
-from sklearn.metrics import precision_score
+from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
 
 """
 Scoring of Task 1 with the metrics accuracy, and precision, recall, and f1 for positive class.
 """
 
-logging.basicConfig(format='%(levelname)s : %(message)s', level=logging.INFO)
+logging.basicConfig(format="%(levelname)s : %(message)s", level=logging.INFO)
 
 
 MAIN_THRESHOLDS = [1, 3, 5, 10, 20, 50]
+
 
 def _read_gold_and_pred(gold_fpath, pred_fpath):
     """
@@ -35,32 +34,35 @@ def _read_gold_and_pred(gold_fpath, pred_fpath):
 
     gold_labels = {}
 
-    with open(gold_fpath, encoding='utf-8') as f:
+    with open(gold_fpath, encoding="utf-8") as f:
         js_obj = json.load(f)
         for entry in js_obj:
-            gold_labels[entry['id']] = entry['class_label']
+            gold_labels[entry["id"]] = entry["class_label"]
 
-    logging.info('Reading predicted labels from file {}'.format(pred_fpath))
+    logging.info("Reading predicted labels from file {}".format(pred_fpath))
 
     line_score = []
     # labels=[]
     with open(pred_fpath) as pred_f:
         next(pred_f)
         for line in pred_f:
-            id, pred_label, run_id  = line.split('\t')
+            id, pred_label, run_id = line.split("\t")
             id = str(id.strip())
             pred_label = pred_label.strip()
 
             if id not in gold_labels:
-                logging.error('No such id: {} in gold file!'.format(id))
+                logging.error("No such id: {} in gold file!".format(id))
                 quit()
             line_score.append((id, pred_label))
             # labels.append(pred_label)
 
-
     if len(set(gold_labels).difference([tup[0] for tup in line_score])) != 0:
-        logging.error('The predictions do not match the lines from the gold file - missing or extra line_no')
-        raise ValueError('The predictions do not match the lines from the gold file - missing or extra line_no')
+        logging.error(
+            "The predictions do not match the lines from the gold file - missing or extra line_no"
+        )
+        raise ValueError(
+            "The predictions do not match the lines from the gold file - missing or extra line_no"
+        )
 
     return gold_labels, line_score
 
@@ -75,11 +77,11 @@ def evaluate(gold_fpath, pred_fpath):
     :param lang: ar, en, or es.
     """
 
-    #Gold files are differently formatted for 1A and 1B, we need to update this part to serve both
+    # Gold files are differently formatted for 1A and 1B, we need to update this part to serve both
     # Handles reading separately for jsonl and tsv/csvs now
     gold_labels_dict, pred_labels_dict = _read_gold_and_pred(gold_fpath, pred_fpath)
-    gold_labels=[]
-    pred_labels=[]
+    gold_labels = []
+    pred_labels = []
     for t_id, label in sorted(gold_labels_dict.items()):
         gold_labels.append(label)
     for t_id, label in sorted(pred_labels_dict):
@@ -89,37 +91,37 @@ def evaluate(gold_fpath, pred_fpath):
         logging.error("Size of gold labels and predicted labels doesn't match")
         raise ValueError("Size of gold labels and predicted labels doesn't match")
 
-    # ranked_lines = [t[0] for t in sorted(line_score, key=lambda x: x[1], reverse=True)]
-    # if thresholds is None or len(thresholds) == 0:
-    #     thresholds = MAIN_THRESHOLDS + [len(ranked_lines)]
-
-    # Calculate Metrics
-    # precisions = _compute_precisions(gold_labels, ranked_lines, len(ranked_lines))
-    # precision = _compute_average_precision(gold_labels, pred_labels)
-    # reciprocal_rank = _compute_reciprocal_rank(gold_labels, ranked_lines)
-    # num_relevant = len({k for k, v in gold_labels.items() if v == 1})
-
     acc = accuracy_score(gold_labels, pred_labels)
-    precision = precision_score(gold_labels, pred_labels, average='weighted')
-    recall = recall_score(gold_labels, pred_labels, average='weighted')
-    f1 = f1_score(gold_labels, pred_labels, average='macro')
+    precision = precision_score(gold_labels, pred_labels, average="micro")
+    recall = recall_score(gold_labels, pred_labels, average="micro")
+    f1 = f1_score(gold_labels, pred_labels, average="micro")
 
     return acc, precision, recall, f1
 
 
 def validate_files(pred_file):
     if not check_format(pred_file):
-        logging.error('Bad format for pred file {}. Cannot score.'.format(pred_file))
+        logging.error("Bad format for pred file {}. Cannot score.".format(pred_file))
         return False
     return True
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--gold-file-path", "-g", required=True, type=str,
-                        help="Path to file with gold annotations.")
-    parser.add_argument("--pred-file-path", "-p", required=True, type=str,
-                        help="Path to file with predict class per data.")
+    parser.add_argument(
+        "--gold-file-path",
+        "-g",
+        required=True,
+        type=str,
+        help="Path to file with gold annotations.",
+    )
+    parser.add_argument(
+        "--pred-file-path",
+        "-p",
+        required=True,
+        type=str,
+        help="Path to file with predict class per data.",
+    )
     args = parser.parse_args()
 
     pred_file = args.pred_file_path
