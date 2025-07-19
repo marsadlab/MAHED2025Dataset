@@ -194,18 +194,20 @@ Note that the checker can not verify whether the prediction files you submit con
 
 ### Guidelines
 
-<!-- The process consists of two phases:
+The process consists of two phases:
 
 1. **System Development Phase:** This phase involves working on the dev set.
 2. **Final Evaluation Phase (will start on 20th July and ends on 25 July 2025):** This phase involves working on the test set, which will be released during the evaluation cycle.
 
 For each phase, please adhere to the following guidelines:
-- Each team should create and maintain a single account for submissions. Please ensure all runs are submitted through this account. Submissions from multiple accounts by the same team could result in your system being not ranked in the overview paper.
-- The most recent file submitted to the leaderboard will be considered your final submission.
-- The output file must be named task[2][A/B/C]_any_suffix.tsv, where [2] is the task number and A/B/C is your specific subtask (for example, task2A_team_name.tsv or task2B_team_name.tsv). Failure to follow this naming convention will result in an error on the leaderboard. Subtasks include 2A, 2B and 2C.
-- You are required to compress the .tsv file into a .zip file (for example, zip task2A.zip task2A.tsv) and submit it via the Codalab page.
-- Please include your team name and a description of your method with each submission.
-- You are permitted to submit a maximum of 200 submissions per day for each subtask. -->
+* Each team should create and maintain a single account for submissions. Please ensure all runs are submitted through this account. Submissions from multiple accounts by the same team may result in your system being excluded from the overview paper.
+* The most recent file submitted to the leaderboard will be considered your final submission.
+* The output file must be named `prediction.csv` and then zipped as `prediction.zip`. The predictions must be one of: `hate` or `not-hate`.
+  Required column:
+  * `id`: a unique identifier for each text.
+    Please do not shuffle entries when submitting.
+
+
 
 ### Submission Site
 
