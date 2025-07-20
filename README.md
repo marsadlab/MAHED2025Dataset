@@ -11,7 +11,7 @@ In this edition we offered three tasks (i) hate and hope speech classification, 
 
 - [Task 2: Emotion, Offensive Language, and Hate Detection](task2)
 
-  Multimodal Hate Speech Detection in Memes
+  Multitaksing for detecting Emotion, Offensive Language, and Hate 
 
 - [Task 3: Multimodal Hate Speech Detection in Memes](task3)
 
@@ -26,7 +26,7 @@ Please check the task-specific directory for the licensing of the respective dat
 **Lab Organizers:** Please find on the task website: https://marsadlab.github.io/mahed2025
 
 # Contact
-<!-- Slack Channel: [join](https://join.slack.com/t/araieval/shared_invite/zt-20rzypxs7-LuHUsw8ltj7ylae9c4I7XQ) <br>
+<!-- Whatsapp Channel: [join](https://api.whatsapp.com/send/?phone=%2B97450399385&text&type=phone_number&app_absent=0) <br>
 Email: [araieval@googlegroups.com](araieval@googlegroups.com) -->
 
 # Citation
