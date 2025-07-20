@@ -105,21 +105,21 @@ Please see examples on here: https://huggingface.co/datasets/QCRI/Prop2Hate-Meme
 ### Output Data Format
 The output file format should be as follows
 
-> **id <TAB> class_label <TAB> run_id**
+> **id <COMMA> prediction**
 
 Each row contains three TAB separated fields:
 
-> id <TAB> class_label <TAB> run_id
+> id <COMMA> class_label
 
 Where: <br>
 * id: id for a given data<br/>
-* class_label: Predicted class label for the tweet. <br/>
-* run_id: String identifier used by participants. <br/>
+* prediction: Predicted class label for the meme. <br/>
+
 
 Example:
 ```
-data/arabic_memes_fb_insta_pinterest/Instagram/IMAGES/comiicsatk/2022-01-17_14-16-04_UTC.jpg	hate  Model_1
-data/arabic_memes_fb_insta_pinterest/Instagram/IMAGES/ex.officiall/2022-04-11_14-00-16_UTC.jpg	not-hate  Model_1
+data/arabic_memes_fb_insta_pinterest/Instagram/IMAGES/comiicsatk/2022-01-17_14-16-04_UTC.jpg	hate
+data/arabic_memes_fb_insta_pinterest/Instagram/IMAGES/ex.officiall/2022-04-11_14-00-16_UTC.jpg	not-hate
 ```
 
 ## Scorer and Official Evaluation Metrics
