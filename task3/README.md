@@ -24,7 +24,7 @@ Kindly find the leaderboard released in this google sheet, [link](http://shortur
 
 ## List of Versions
 * __Task 3 [2025/07/20]__
-  - Training/Dev data for task 3 released.
+  - Test set for task 3 released.
 * __Task 3 [2025/06/13]__
   - Training/Dev data for task 3 released.
 
