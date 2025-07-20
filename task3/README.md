@@ -23,17 +23,18 @@ Kindly find the leaderboard released in this google sheet, [link](http://shortur
 
 
 ## List of Versions
-
+* __Task 3 [2025/07/20]__
+  - Training/Dev data for task 3 released.
 * __Task 3 [2025/06/13]__
-  - Training/Dev data for task 2 released.
+  - Training/Dev data for task 3 released.
 
 
 ## Contents of the Directory
 
 * Main folder: [data](./data)
-  	This directory contains files for all languages and subtasks.
+  	This directory contains files for the test set.
 * Main folder: [baselines](./baselines)<br/>
-	Contains scripts provided for baseline models of the tasks.
+	Contains scripts provided for baseline models of the task.
 * Main folder: [format_checker](./format_checker)<br/>
 	Contains scripts provided to check format of the submission file.
 * Main folder: [scorer](./scorer)<br/>
@@ -206,6 +207,7 @@ For each phase, please adhere to the following guidelines:
   Required column:
   * `id`: a unique identifier for each text.
     Please do not shuffle entries when submitting.
+* Note that your last submission will be counted as the best submission.
 
 
 
