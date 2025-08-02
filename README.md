@@ -77,6 +77,25 @@ TBA
     url = "https://aclanthology.org/2024.lrec-main.1308/",
     pages = "15044--15055",  
 }
+@article{biswas2025emohopespeech,
+  title     = {EmoHopeSpeech: An Annotated Dataset of Emotions and Hope Speech in English and Arabic},
+  author    = {Md. Rafiul Biswas and Wajdi Zaghouani},
+  journal   = {CoRR},
+  volume    = {abs/2505.11959},
+  year      = {2025},
+  month     = may,
+  url       = {https://arxiv.org/abs/2505.11959},
+}
+@article{biswas2025arabic_hate_tweets,
+  title     = {An Annotated Corpus of Arabic Tweets for Hate Speech Analysis},
+  author    = {Md. Rafiul Biswas and Wajdi Zaghouani},
+  journal   = {CoRR},
+  volume    = {abs/2505.11969},
+  year      = {2025},
+  month     = may,
+  url       = {https://arxiv.org/abs/2505.11969},
+}
+
 @inproceedings{alam2024propaganda,
   title = {Propaganda to Hate: A Multimodal Analysis of Arabic Memes with Multi-agent LLMs},
   author = {Alam, Firoj and Biswas, Md Rafiul and Shah, Uzair and Zaghouani, Wajdi and Mikros, Georgios},
