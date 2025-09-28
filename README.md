@@ -6,12 +6,14 @@ In this edition we offered three tasks (i) hate and hope speech classification, 
 
 - [Task 1: Text-based Hate and Hope Speech Classification](task1)
 
-  Classify Arabic text as hate, hope, or not_applicable.
+  Classify Arabic text as hate, hope, or not_applicable. For dataset used this repository, please visit: https://forms.gle/Lj8m6QnkNN4r41ir9
 
 
 - [Task 2: Emotion, Offensive Language, and Hate Detection](task2)
 
-  Multitaksing for detecting Emotion, Offensive Language, and Hate 
+  Multitaksing for detecting Emotion, Offensive Language, and Hate
+  For dataset used this repository, please visit: https://forms.gle/Lj8m6QnkNN4r41ir9
+
 
 - [Task 3: Multimodal Hate Speech Detection in Memes](task3)
 
